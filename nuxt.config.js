@@ -34,7 +34,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/element-ui', ssr: false }
+    { src: '@/plugins/element-ui', ssr: false },
+    { src: '@/plugins/mavon-editor', ssr: false },
   ],
 
   /*
@@ -48,7 +49,16 @@ export default {
   ** Axios module configuration
   */
   axios: {
+    proxy: true // Can be also an object with default options
     // See https://github.com/nuxt-community/axios-module#options
+  },
+
+  /*
+  ** Axios module  proxy
+  */
+  proxy: {
+    '/api/': 'http://api.example.com',
+    '/api2/': 'http://api.another-website.com'
   },
 
   /*
