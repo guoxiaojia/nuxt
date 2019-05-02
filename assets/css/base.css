@@ -1,0 +1,170 @@
+/* CSS reset */
+body,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,form,fieldset,input,button,textarea,p,blockquote,th,td,input{
+	padding:0;
+	margin:0;
+}
+
+body,input,select{
+	font-family: Arial,sans-serif ,Microsoft YaHei !important;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	list-style:none;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight: normal;
+}
+table{
+	border-collapse:collapse;
+	border-spacing:0;
+}
+input[type="text"],input[type="password"],input[type="tel"],input[type="number"],input[type="search"],textarea {
+	/* border: none; */
+	outline:none;
+	-webkit-appearance: none; 
+}
+img{
+	border:none;
+	vertical-align: middle;
+}
+input, textarea, button, a{ 
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+input{
+	vertical-align: middle;
+}
+select{
+	outline: none;
+}
+a{
+	color: #333;
+}
+a:hover{
+    text-decoration: none !important;
+}
+.clearfix:before,.clearfix:after {
+	content: "";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
+.container{
+	width: 1584px;
+	margin: 0 auto;
+}
+.fl{
+	float: left
+}
+.fr{
+	float: right;
+}
+button{	
+	outline:none;
+	border: 0;
+}
+.footer{
+	width: 100%;
+	text-align: center;
+	/* position: absolute;
+	bottom: 0;
+	left: 0 */
+	/* background-color: #fff; */
+	margin-top: 40px;
+	padding: 20px 0;
+	
+}
+.footer p{
+	font-size: 14px;
+	color: #000;
+	padding: 10px 0;
+}
+.no-Date{
+    padding: 40px 0;
+    text-align: center;
+}
+.no-Date p{
+	font-size: 14px;
+	color: #bab9bb;
+	margin-top: 20px;
+}
+.small-time{
+	font-style: normal
+}
+.blank-line{
+    display: block;
+    width: 100%;
+    height: 20px
+}
+.button-tr{
+    text-align: right;
+    margin-top: 20px;
+}
+body{
+	overflow-y: scroll;
+	overflow-x: hidden
+}
+body::-webkit-scrollbar {
+	width: 1px; 
+}
+body::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+	background: #5c5c5c;
+	height: 1px;
+}
+.no_padding{
+	padding: 0
+}
+.v-note-wrapper{
+	z-index: 98
+}
+.markdown-body > *{
+	font-size: inherit;
+	list-style: inherit;
+	text-decoration: inherit;
+	color: inherit;
+	font-family: inherit;
+	text-decoration: inherit;
+}
+.markdown-body pre{
+	background: #282c34;
+	color: #ccc;
+	font-family: Consolas, Monaco, 'Andale Mono', monospace;
+	font-size: .8em;
+}
+.up-to-top{
+	position: fixed;
+	bottom: 60px;
+	right: 20px;
+}
+.up-to-top a{
+	display: block;
+	margin-top: 10px;
+}
+.up-to-top .to-bottom img{
+	transform: rotate(180deg)
+}
+
+body > a{
+	font-size: 14px;
+	text-align: center;
+	display: flex;
+	justify-content: center
+}
+.level{
+	width: 80px;
+	height: 44px;
+	background-size:contain;
+	background-repeat: no-repeat ;
+	margin: 12px auto 0 auto;
+}
+@media (max-width:750px){
+	.footer{
+		position: inherit;
+		bottom: inherit;
+		left: inherit;
+		margin-top: 20px;
+	}
+}

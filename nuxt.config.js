@@ -1,5 +1,5 @@
 import pkg from './package'
-
+global.HTMLElement = typeof window === 'undefined' ? Object : window.HTMLElement
 export default {
   mode: 'universal',
 
@@ -27,14 +27,15 @@ export default {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    '@/assets/css/base.css',
+    'element-ui/lib/theme-chalk/index.css',
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/element-ui', ssr: false },
+    '@/plugins/element-ui',
     { src: '@/plugins/mavon-editor', ssr: false },
   ],
 
@@ -65,7 +66,8 @@ export default {
   ** Build configuration
   */
   build: {
-    transpile: [/^element-ui/],
+    //开启这个就是客户端渲染
+    // transpile: [/^element-ui/],
     
     /*
     ** You can extend webpack config here

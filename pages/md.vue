@@ -28,7 +28,7 @@ import * as config from "@/api/config"
           subfield: state => state.mdConf.subfield,
           codeStyle: state => state.mdConf.codeStyle,
           fontSize: state => state.mdConf.fontSize,
-        })
+        }),
     },
     methods: {
       greet: function (event){
