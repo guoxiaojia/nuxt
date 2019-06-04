@@ -29,9 +29,10 @@ import Foot from '@/components/footer/index'
 export default {
   name: 'welcome',
   data () {
-    // console.log(this.$store);
+    // console.log(this.$store.state);
+    // console.log(this.$store.state.modules);
     return {
-      siteIntro: [],
+      siteIntro: this.$store.state.siteIntro,
     };
   },
   components: {

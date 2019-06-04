@@ -1,4 +1,5 @@
 import * as config from '@/api/config'
+
 const state = {
     //markdown  编辑器配置设置
     mdConf: {
@@ -81,7 +82,9 @@ const mutations = {
 
 export default {
   namespaced: true,
-  state,
+  state () {
+    return state
+  },
   actions,
   mutations
 }
