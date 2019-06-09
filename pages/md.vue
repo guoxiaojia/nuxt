@@ -16,10 +16,10 @@ import { mapActions,mapState,mapMutations } from 'vuex'
 import * as config from "@/api/config"
   export default {
     data() {
-      console.log(this.$store);
+      console.log(this.$store.state.login);
       //拿到MarkdownIt对象
       return {
-        handBook: "",
+        handBook: this.$store.state.login,
       };
     },
     computed: {

@@ -1,0 +1,113 @@
+body{
+    background-color: rgba(0,0,0,0.1)
+}
+.login{
+    width: 1200px;
+    margin: 0 auto;
+    .logo{
+        padding: 20px 0;
+        display: inline-block;
+        img{
+            width: 40px;
+        }
+    }
+    .box{
+        width: 500px;
+        margin: 40px auto 0 auto;
+        &.register{
+            margin: 0 auto
+        }
+    }
+    .main{
+        background-color: #fff;
+        box-shadow: 0 0 15px 6px rgba(0,0,0,0.2);
+        padding: 0 20px 40px 20px;
+        .login{
+            text-align: left;
+            padding: 40px 0;
+            font-size: 18px;
+        }
+        .form{
+            .inline{
+                display: block;
+                margin-bottom: 4px;
+                &.align-right{
+                    p{
+                        text-align: right
+                    }
+                }
+                input{
+                    border: 1px solid #eee
+                }
+                span.tips{
+                    display: block;
+                    width: 100%;
+                    height: 20px;
+                    line-height: 20px;
+                    font-size: 14px;
+                    color: #f00
+                }
+                p{
+                    font-size: 14px;
+                    color: #333;
+                    a{
+                        color: #409eff
+                    }
+                }
+                .loginBefore{
+                    font-size: 16px;
+                    color: #000;
+                }
+                ul{
+                    margin-top: 10px;
+                    li{
+                        font-size: 14px;
+                        color: #333;
+                    }
+                }
+            }
+        }
+    }
+}
+.other-login{
+    margin-left: 30px;
+    span{
+        font-size: 12px;
+        display: block;
+        color: #999;
+    }
+    .login-style{
+        cursor: pointer;
+        display: block;
+        width: 54px;
+        height: 54px;
+        img{
+            width: 100%
+        }
+    }
+}
+
+.login .main .form .inline.inline-flex{
+    display: flex;
+    align-items: center
+}
+@media (max-width:1200px){
+    .login{
+        width: 100%;
+    }
+}
+@media (max-width:500px){
+    .login {
+        .box{
+            width: 100%;
+            margin: 0 auto 0 auto
+        }
+        .logo{
+            display: block;
+            text-align: center;
+            img{
+                width: 28px;
+            }
+        }
+    }
+}
