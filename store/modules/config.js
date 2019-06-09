@@ -62,8 +62,6 @@ const state = {
 const actions = {
     //context  = {commit,state}
     setMdConf (context) {
-        // console.log(context.state);
-        console.log('hello world');
         context.commit({
             type: 'setMdConf',
             confArr: config.mdConf,
@@ -74,9 +72,7 @@ const actions = {
 // mutations
 const mutations = {
     setMdConf (state,confArr) {
-        console.log(confArr);
         state.mdConf = confArr;
-        console.log('test')
     },
 }
 

@@ -16,14 +16,14 @@ import { mapActions,mapState,mapMutations } from 'vuex'
 import * as config from "@/api/config"
   export default {
     data() {
-      console.log(this.$store)
+      console.log(this.$store);
       //拿到MarkdownIt对象
       return {
         handBook: "",
       };
     },
     computed: {
-      ...mapState('config',{
+      ...mapState('modules/config',{
           markdownOption: state => state.mdConf.markdownOption,
           placeholder: state => state.mdConf.placeholder,
           subfield: state => state.mdConf.subfield,
@@ -34,18 +34,19 @@ import * as config from "@/api/config"
     methods: {
       greet: function (event){
         //使用 mapActions mapMutations 映射方法
-        this.setMdConfA();
-        this.setMdConfM();
+        // this.setMdConfA();
+        // this.setMdConfM();
         // 直接触发不需要 mapActions 触发 
-        // let a = this.$store.dispatch('config/setMdConf');
+        // let a = this.$store.dispatch('modules/config/setMdConf');
         //直接触发不需要  mapMutations 触发
-        // let a = this.$store.commit('config/setMdConf',config.mdConf);
+        // let a = this.$store.commit('modules/config/setMdConf',config.mdConf);
+        this.$store.dispatch('modules/config/setMdConf',config.mdConf);
       },
       ...mapActions({
-        setMdConfA: 'config/setMdConf',  //  === this.$store.dispatch('config/setMdConf');
+        setMdConfA: 'modules/config/setMdConf',  //  === this.$store.dispatch('config/setMdConf');
       }),
       ...mapMutations({
-        setMdConfM: 'config/setMdConf'  //  == this.$store.commit('config/setMdConf',config.mdConf);
+        setMdConfM: 'modules/config/setMdConf'  //  == this.$store.commit('config/setMdConf',config.mdConf);
      }), 
    }
   }
