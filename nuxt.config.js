@@ -58,7 +58,7 @@ export default {
   ** Axios module  proxy
   */
   proxy: {
-    '/api/': 'http://api.example.com',
+    '/api/': { target: 'http://localhost:8080', pathRewrite: {'^/api/': ''}},
     '/api2/': 'http://api.another-website.com'
   },
 

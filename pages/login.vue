@@ -1,6 +1,8 @@
 <template>
   <div class="login">
-      <router-link class="logo" to="/index"><img src="@/static/img/icon.svg"  title="Go Web Iris中文网" align="logo"></router-link>
+      <router-link class="logo" to="/index">
+        <img src="@/static/img/icon.svg"  title="Go Web Iris中文网" align="logo">
+      </router-link>
       <div class="box">
           <div class="main">
             <div class="login">登录</div>
@@ -49,7 +51,9 @@
                 <div class="inline inline-flex">
                     <el-button type="primary" @click="loginSub">立即登录</el-button>
                     <div class="other-login">
-                        <span class="login-style" title="Github 登陆" @click="githubStyle"><img src="@/static/img/social-github.png" alt=""></span>
+                        <span class="login-style" title="Github 登陆" @click="githubStyle">
+                            <img src="@/static/img/social-github.png" alt="">
+                        </span>
                     </div>
                 </div>
                 <div class="inline align-right">
@@ -75,8 +79,8 @@
 <style src="@/assets/css/login.scss" lang="scss"></style>
 <script>
 import valid from '@/tool/validate.js'
-// import qs from 'qs';
-// import { Login, Captcha, loginGithub } from 'utils/api'
+import help from '@/tool/help.js'
+import {getCaptcha} from '@/tool/tool.js'
 export default{
     data() {
         return{
@@ -91,7 +95,7 @@ export default{
                 captcha: '',
             },
             captcha: '',
-            codeV:'',
+            randString:'',
             error:0,
             loading: false
         }
@@ -118,7 +122,6 @@ export default{
                     this.$message.error('请填写完整且格式正确的信息');
                     return;
                 }
-
             }
             // let data = {
             //     email: this.login.email,
@@ -154,11 +157,13 @@ export default{
             // })
         },
         getCaptcha() {
-            // var data = lg.getCaptcha();
-            // this.login.codeV = data;
-            // Captcha(data).then((res) => {
-            //     this.codeImg = 'data:image/png;base64,'+res.data.result;
-            // })
+            this.login.randString = help.getRandom(true,16,16);
+            console.log(this.login.randString)
+            getCaptcha(this.login.randString).then((res) => {
+                // console.log(111);
+                // console.log(res);
+                // this.codeImg = 'data:image/png;base64,'+res.data.result;
+            })
         },
         loginRemove(value,type) {
             if (type == 'email' && valid.email(value) == '') {
