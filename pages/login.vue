@@ -78,12 +78,12 @@
 </template>
 <style src="@/assets/css/login.scss" lang="scss"></style>
 <script>
+import { mapActions,mapState,mapMutations } from 'vuex'
 import valid from '@/tool/validate.js'
 import help from '@/tool/help.js'
-import {getCaptcha} from '@/tool/tool.js'
 export default{
     data() {
-        return{
+        return {
             login: {
                 email:'',
                 pwd:'',
@@ -94,11 +94,15 @@ export default{
                 pwd: '',
                 captcha: '',
             },
-            captcha: '',
             randString:'',
             error:0,
             loading: false
-        }
+        };
+    },
+    computed: {
+      ...mapState({
+          captcha: state => state.captcha,
+        }),
     },
     // inject: ['reload'],
     methods: {
@@ -156,15 +160,9 @@ export default{
             //     }
             // })
         },
-        getCaptcha() {
-            this.login.randString = help.getRandom(true,16,16);
-            console.log(this.login.randString)
-            getCaptcha(this.login.randString).then((res) => {
-                // console.log(111);
-                // console.log(res);
-                // this.codeImg = 'data:image/png;base64,'+res.data.result;
-            })
-        },
+        ...mapActions({
+            getCaptcha: 'getCaptcha',  //  === this.$store.dispatch('config/setMdConf');
+        }),
         loginRemove(value,type) {
             if (type == 'email' && valid.email(value) == '') {
                 this.tip.email = ''

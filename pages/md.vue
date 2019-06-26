@@ -13,7 +13,7 @@
 </template>
 <script>
 import { mapActions,mapState,mapMutations } from 'vuex'
-import * as config from "@/api/config"
+import { config } from "@/api/config"
   export default {
     data() {
       console.log(this.$store.state.login);

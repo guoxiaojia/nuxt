@@ -36,6 +36,7 @@ export default {
   */
   plugins: [
     '@/plugins/element-ui',
+    '@/plugins/axios',
     { src: '@/plugins/mavon-editor', ssr: false },
   ],
 

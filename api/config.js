@@ -1,7 +1,3 @@
-/**
- * Mocking client-server processing
- */
-
 export const mdConf=  {
     subfield: true,
     codeStyle: 'github-gist',    //代码高方案
@@ -55,4 +51,8 @@ export const mdConf=  {
     },
     imageFilter: null,  //图片过滤函数，参数为一个File Object，要求返回一个Boolean, true表示文件合法，false表示文件不合法
     imageClick: null, //图片点击事件，默认为预览，可覆盖
+}
+
+export const url = {
+  captcha: '/api/captcha',
 }

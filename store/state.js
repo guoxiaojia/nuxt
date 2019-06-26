@@ -13,4 +13,5 @@ export default () => ({
             intcont:'Iris为您提供构建面向服务的应用程序的结构。 用Iris构建微服务很容易。'
         }
     ],
+    captcha: '',
 })
