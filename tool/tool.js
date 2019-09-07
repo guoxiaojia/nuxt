@@ -1,10 +1,14 @@
-//获取图形验证码
-export function getCaptcha(code) {
-    const url = '/api/captcha'
-    console.log(code)
-    const data = {
-        verifyString: code
+export function countDown($this,dom){
+  let count = 60;
+  $this.isDisable= true;
+  let time = setInterval(() => {
+    if(count <= 1) {
+      $this.isDisable = false;
+      clearInterval(time);
+      dom.target.innerText = '发送'
+      return;
     }
-    return axios.$get(url,{params:data})
-    return data
+    count--;
+    dom.target.innerText = count + 's'
+  },1000)
 }

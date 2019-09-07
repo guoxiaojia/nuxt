@@ -1,5 +1,4 @@
 export const mdConf=  {
-    subfield: true,
     codeStyle: 'github-gist',    //代码高方案
     placeholder: '说点什么吧？',  //提示信息
     defaultOpen: 'edit',  //edit： 默认展示编辑区域 ， preview： 默认展示预览区域 , 其他 = edit
@@ -55,4 +54,7 @@ export const mdConf=  {
 
 export const url = {
   captcha: '/api/captcha',
+  userLogin: '/api/login',
+  userReg: '/api/reg',
+  sendEmailCode: '/api/send/email/code',
 }

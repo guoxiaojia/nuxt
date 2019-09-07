@@ -13,7 +13,7 @@
 </template>
 <script>
 import { mapActions,mapState,mapMutations } from 'vuex'
-import { config } from "@/api/config"
+import { mdConf } from "@/api/config"
   export default {
     data() {
       console.log(this.$store.state.login);
@@ -40,7 +40,7 @@ import { config } from "@/api/config"
         // let a = this.$store.dispatch('modules/config/setMdConf');
         //直接触发不需要  mapMutations 触发
         // let a = this.$store.commit('modules/config/setMdConf',config.mdConf);
-        this.$store.dispatch('modules/config/setMdConf',config.mdConf);
+        this.$store.dispatch('modules/config/setMdConf',mdConf);
       },
       ...mapActions({
         setMdConfA: 'modules/config/setMdConf',  //  === this.$store.dispatch('config/setMdConf');

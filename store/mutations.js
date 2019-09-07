@@ -16,6 +16,7 @@ export function addTodo (state, todo) {
     state.todos.push(todo)
 }
   //获取图形验证码
-export function getCaptcha(state,img) {
-  state.captcha = img
+export function getCaptcha(state,data) {
+  state.captcha = data.img
+  state.randStr = data.randStr
 }

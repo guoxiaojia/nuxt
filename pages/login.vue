@@ -12,8 +12,8 @@
                     placeholder="请输入电子邮箱"
                     v-model="login.email"
                     clearable 
-                    @input="loginRemove(login.email,'email')"
-                    @blur="blurLogin(login.email,'email')"
+                    @input="removeTip(login.email,'email')"
+                    @blur="blurVerify(login.email,'email')"
                     @keyup.enter.native="loginSub">
                     </el-input>
                     <span class="tips">{{ tip.email }}</span>
@@ -24,8 +24,8 @@
                     placeholder="请输入密码"
                     v-model="login.pwd"
                     clearable 
-                    @input="loginRemove(login.pwd,'pwd')"
-                    @blur="blurLogin(login.pwd,'pwd')"
+                    @input="removeTip(login.pwd,'pwd')"
+                    @blur="blurVerify(login.pwd,'pwd')"
                     @keyup.enter.native="loginSub">
                     </el-input>
                     <span class="tips">{{ tip.pwd }}</span>
@@ -33,10 +33,10 @@
                 <div class="inline">
                     <el-input 
                     placeholder="请输入验证码" 
-                    v-model="login.code" 
+                    v-model="login.captchaCode"
                     class="input-with-select" 
-                    @input="loginRemove(login.code,'code')"
-                    @blur="blurLogin(login.code,'code')"
+                    @input="removeTip(login.captchaCode,'captchaCode')"
+                    @blur="blurVerify(login.captchaCode,'captchaCode')"
                     @keyup.enter.native="loginSub">
                         <el-button 
                         slot="append" 
@@ -46,7 +46,7 @@
                             <img :src="captcha" height="35" title="Go Web Iris中文网" align="图形验证码">
                         </el-button>
                     </el-input>
-                    <span class="tips">{{ tip.captcha }}</span>
+                    <span class="tips">{{ tip.captchaCode }}</span>
                 </div>
                 <div class="inline inline-flex">
                     <el-button type="primary" @click="loginSub">立即登录</el-button>
@@ -80,21 +80,19 @@
 <script>
 import { mapActions,mapState,mapMutations } from 'vuex'
 import valid from '@/tool/validate.js'
-import help from '@/tool/help.js'
 export default{
     data() {
         return {
             login: {
                 email:'',
                 pwd:'',
-                code:'',
+                captchaCode:'',
             },
             tip: {
                 email: '',
                 pwd: '',
-                captcha: '',
+                captchaCode: '',
             },
-            randString:'',
             error:0,
             loading: false
         };
@@ -102,83 +100,78 @@ export default{
     computed: {
       ...mapState({
           captcha: state => state.captcha,
+          randStr: state => state.randStr,
         }),
     },
-    // inject: ['reload'],
     methods: {
-        blurLogin(vaule,type) {
-            if (type == 'email') {
-                this.tip.email = valid.email(vaule)
-            }else if (type == 'pwd') {
-                this.tip.pwd = valid.pwd(vaule)
-            }else if (type == 'code') {
-                this.tip.captcha = ''
-                if ( vaule.length != 6) this.tip.captcha = '验证码只能是六位'
+       ...mapActions({
+            userLogin: 'modules/user/userLogin',
+            getCaptcha: 'getCaptcha',  //  === this.$store.dispatch('config/getCaptcha');
+        }),
+        //验证数据格式是否正确
+        blurVerify(value,type) {
+            if (type === 'email') {
+                this.tip.email = valid.email(value)
+            }else if (type === 'pwd') {
+                this.tip.pwd = valid.pwd(value)
+            }else if (type === 'captchaCode') {
+                this.tip.captchaCode = valid.verifyCode(value,type)
             }
+            return this.tip
         },
         loginSub() {
+            //提交时检查必填数据是否为空
             for(let i in this.login){
-                if(!this.login[i]){
-                    this.$message.error('请填写完整且格式正确的信息');
-                    return
-                }
-                if(this.tip[i] != ''){
-                    this.$message.error('请填写完整且格式正确的信息');
-                    return;
-                }
+                if(!this.login[i]) return this.$message.error('请填写完整且格式正确的信息1');
             }
-            // let data = {
-            //     email: this.login.email,
-            //     password: this.login.pwd,
-            //     captcha: this.login.code,
-            //     verifyString: this.login.codeV,
-            // }
-            // Login(data).then(res =>{
-            //     if(res.data.status == 1){
-            //         localStorage.setItem('user',JSON.stringify(res.data.result));
-            //         this.$notify({
-            //             title: '登陆成功',
-            //             message: res.data.message,
-            //             type: 'success'
-            //         });
-            //         if(localStorage.getItem('user')){
-            //             const redirect = this.$route.query.redirect
-            //             if(redirect === undefined) {
-            //                 this.$router.push({path: '/index'})
-            //             }else{
-            //                 this.$router.push({path: redirect})
-            //             }
-            //         }
-            //         // window.location.href="/index"
-            //     }else{
-            //         this.$notify.error({
-            //             title: '错误',
-            //             message: res.data.message
-            //         })
-            //         this.login.code = ''
-            //         this.getCaptcha()
-            //     }
-            // })
+            //提交时检查必填数据是否存在错误
+            for (let i in this.tip){
+                if(this.tip[i] !== '') return this.$message.error('请填写完整且格式正确的信息2');
+            }
+            //登陆操作
+            let loginMsg = {
+                    email: this.login.email,
+                    password: this.login.pwd,
+                    captcha: this.login.captchaCode,
+                    verifyString: this.randStr
+            }
+            this.userLogin(loginMsg).then(res => {
+              if(res.data.status === 1){
+                localStorage.setItem('user',JSON.stringify(res.data.result));
+                this.$notify({
+                  title: '登陆成功',
+                  message: res.data.message,
+                  type: 'success'
+                });
+                const redirect = this.$route.query.redirect
+                if(redirect === undefined){
+                  return this.$router.push({path: '/index'})
+                }
+                return this.$router.push({path: redirect})
+              }
+              this.$notify.error({
+                title: '错误',
+                message: res.data.message
+              })
+              this.login.code = ''
+              return this.getCaptcha()
+            }).catch(error => {
+              return this.$notify.error({
+                title: '服务器错误',
+                message: error.toString()
+              })
+            })
         },
-        ...mapActions({
-            getCaptcha: 'getCaptcha',  //  === this.$store.dispatch('config/setMdConf');
-        }),
-        loginRemove(value,type) {
-            if (type == 'email' && valid.email(value) == '') {
-                this.tip.email = ''
-            }else if (type == 'pwd' && valid.pwd(value) == '') {
-                this.tip.pwd = ''
-            }else if (type == 'code' && value.length == 6) {
-                this.tip.captcha = ''
-            }
+        removeTip(value,type) {  //清楚错误提示
+          return this.blurVerify(value,type)
         },
         githubStyle() {
             this.loading = true
             loginGithub().then(res => {
-                if(res.data.status == 301) {
+                if(res.data.status === 301) {
                     this.loading= false
                     window.location.href=res.data.result.url
-                }else if(res.data.status == 1) {
+                }else if(res.data.status === 1) {
                     window.location.href=""
                 }
             })
@@ -201,11 +194,6 @@ export default{
         this.getCaptcha()
     },
     created() {
-        // lg.checkTologin(this)
-        // const url = location.search   
-        // if(url.indexOf('profile') > -1) {
-        //     this.hasProfile(url)
-        // }
     }
 }
 </script>
